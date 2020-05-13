@@ -5,7 +5,7 @@ const output=[];
 const outputval= inputval.map((str) => {
     let obj={};
     let[first, second] = str.split(/[#@]/);
-    //console.log(first, second);
+    console.log(first, second);
     switch(str[0]){
         case "#":
             obj.type= "intent";
