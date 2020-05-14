@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <form onsubmit="CreatePlayList()">
+                    <label class="text-align"> CREATING PLAYLIST</label>
+                    <br>
+                    <label for="Songname">Name Of The Song</label>
+                    <input type="text" id="Songname" class="mt-2">
+                    <br>
+                    <label for="singer">Singer Of The Song</label>
+                    <input type="text" id="singer" class="mt-2">
+                    <br>
+                    <label for="songurl">URL Of The Song</label>
+                    <input type="file" id="songurl" name="myfile" class="mt-2" required>
+                    <br>
+                    <input type="submit" class="mt-2">
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <audio controls id="head">
+                    <source id="mysongs">
+                </audio>
+            </div>
+        </div>
+    </div>
+    <script src="musicplayer.js"></script>
+</body>
+</html>
