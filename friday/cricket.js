@@ -31,6 +31,7 @@ function countdown() {
         scoreboard();
     }
     if (count === 1) {
+        //no_of_player=10;
         scoreboard();
     }
 }
@@ -43,6 +44,7 @@ function timer() {
         btn2.removeEventListener("click", timer);
     }
 }
+//updating the scoreboard of each team
 function scoreboard() {
     //creating 10players by each player getting only 6 balls hence new variable called balls is created
     balls = no_of_balls % 6;
@@ -52,11 +54,12 @@ function scoreboard() {
         //total_single_player=0;
         no_of_player++;
     }
-    console.log("no_of_players", no_of_player);
+    //console.log("no_of_players", no_of_player);
     var runs_scored = Math.floor(Math.random() * 5);
     //console.log(runs_scored);
     //console.log("balls", balls);
     var div1 = document.getElementById("divTableRow" + no_of_player + "");
+    console.log("secs", secs);
     if ((balls < 7) && (runs_scored !== 0)) {
         var div4 = document.createElement("div");
         div4.setAttribute("class", "divTableCell");
@@ -100,9 +103,10 @@ function scoreboard() {
         }
         //console.log("output", output);
     }
-    if ((balls === 6) && (no_of_player > 9)) {
+    if (((balls === 6) && (no_of_player > 9)) || (secs === 0)) {
         //(document.getElementById("button-2") as HTMLButtonElement).disabled = true;
         document.getElementById("button-1").disabled = true;
+        no_of_player = 10;
         if (count === 0) {
             for (var i = 0; i < teamscore.length; i++) {
                 team1score = team1score + teamscore[i];
@@ -138,6 +142,7 @@ function scoreboard() {
     no_of_balls++;
     //console.log(no_of_balls);
 }
+//GENERATE RESULTS
 function result() {
     var score1 = document.getElementById("team1");
     score1.value = "" + team1score + "";
