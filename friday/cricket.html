@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRICKET SCORE CARD</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        .divTable {
+            display: table;
+            width: 60%;
+        }
+
+        .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+        }
+
+        .divTableCell,
+        .divTableHead {
+            border: 1px solid #999999;
+            display: table-cell;
+            padding: 3px 10px;
+        }
+
+        .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+            font-weight: lighter;
+        }
+
+        .divTableFoot {
+            background-color: #EEE;
+            display: table-footer-group;
+            font-weight: lighter;
+        }
+
+        #divTableBody-0 {
+            display: table-row-group;
+        }
+
+        #divTableBody-1 {
+            display: table-row-group;
+        }
+    </style>
+</head>
+
+<body class="bg-primary">
+    <div class="container bg-white mt-4">
+        <div class="row">
+            <div class="col-lg-12 text-center mt-4">
+                <h4>
+                    CRICKET-10
+                </h4>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-4">
+                <pre>
+                    TEAM 1 SCORE
+                    <input id="team1" type="text" class=" text-center"
+                    style="width: 70px; font-size: 16px; font-weight: bold; color: black;">
+                    <button class="bg-primary text-white" id="button-1" type="button" onclick="countdown();">HIT-1</button>
+                </pre>
+            </div>
+            <div class="col-lg-4">
+                <h4 class="text-center">
+                    TIMER
+                </h4>
+                <input id="seconds" type="text" class=" text-center"
+                    style="width: 70px; font-size: 16px; margin-left: 140px;  font-weight: bold; color: black;">
+            </div>
+            <div class="col-lg-4">
+                <pre>
+                    TEAM 2 SCORE
+                    <input id="team2" type="text" class=" text-center"
+                    style="width: 70px; font-size: 16px; font-weight: bold; color: black;">
+                    <button class="bg-primary text-white" id="button-2" type="button" onclick="countdown();" disabled>HIT-2</button>
+                </pre>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12 text-center mt-1">
+                <button class="bg-primary text-white" id="button-3" type="button" onclick="countdown();result();"
+                    disabled>GENERATE RESULT</button>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-lg-5 ml-3">
+                <div class="divTable">
+                    <div id="divTableBody-0">
+                        <div class="divTableRow" style="display: table-row;">
+                            <div class="divTableCell">Team-1</div>
+                            <div class="divTableCell">ball-1</div>
+                            <div class="divTableCell">ball-2</div>
+                            <div class="divTableCell">ball-3</div>
+                            <div class="divTableCell">ball-4</div>
+                            <div class="divTableCell">ball-5</div>
+                            <div class="divTableCell">ball-6</div>
+                            <div class="divTableCell" id="total0">total</div>
+                        </div>
+                        <div id="divTableRow1" style="display: table-row;">
+                            <div class="divTableCell">Player-1</div>
+                        </div>
+                        <div id="divTableRow2" style="display: table-row;">
+                            <div class="divTableCell">Player-2</div>
+                        </div>
+                        <div id="divTableRow3" style="display: table-row;">
+                            <div class="divTableCell">Player-3</div>
+                        </div>
+                        <div id="divTableRow4" style="display: table-row;">
+                            <div class="divTableCell">Player-4</div>
+                        </div>
+                        <div id="divTableRow5" style="display: table-row;">
+                            <div class="divTableCell">Player-5</div>
+                        </div>
+                        <div id="divTableRow6" style="display: table-row;">
+                            <div class="divTableCell">Player-6</div>
+                        </div>
+                        <div id="divTableRow7" style="display: table-row;">
+                            <div class="divTableCell">Player-7</div>
+                        </div>
+                        <div id="divTableRow8" style="display: table-row;">
+                            <div class="divTableCell">Player-8</div>
+                        </div>
+                        <div id="divTableRow9" style="display: table-row;">
+                            <div class="divTableCell">Player-9</div>
+                        </div>
+                        <div id="divTableRow10" style="display: table-row;">
+                            <div class="divTableCell">Player-10</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-1">
+                <p>
+                    Match Won By
+                </p>
+                <input id="won" type="text" class=" text-center"
+                    style="width: 70px; border:none; font-size: 16px; font-weight: bold; color: black;">
+                <hr>
+                <p>
+                    Man Of The Match
+                </p>
+                <input id="player" type="text" class=" text-center"
+                    style="width: 70px; border:none; font-size: 16px; font-weight: bold; color: black;">
+                <input id="team" type="text" class=" text-center"
+                    style="width: 70px; border:none; font-size: 16px; font-weight: bold; color: black;">
+                <input id="score" type="text" class=" text-center"
+                    style="width: 70px; border:none; font-size: 16px; font-weight: bold; color: black;">
+            </div>
+            <div class="col-lg-5">
+                <div class="divTable">
+                    <div id="divTableBody-1">
+                        <div class="divTableRow" style="display: table-row;">
+                            <div class="divTableCell">Team-2</div>
+                            <div class="divTableCell">ball-1</div>
+                            <div class="divTableCell">ball-2</div>
+                            <div class="divTableCell">ball-3</div>
+                            <div class="divTableCell">ball-4</div>
+                            <div class="divTableCell">ball-5</div>
+                            <div class="divTableCell">ball-6</div>
+                            <div class="divTableCell" id="total1">total</div>
+                        </div>
+                        <div id="divTableRow11" style="display: table-row;">
+                            <div class="divTableCell">Player-1</div>
+                        </div>
+                        <div id="divTableRow12" style="display: table-row;">
+                            <div class="divTableCell">Player-2</div>
+                        </div>
+                        <div id="divTableRow13" style="display: table-row;">
+                            <div class="divTableCell">Player-3</div>
+                        </div>
+                        <div id="divTableRow14" style="display: table-row;">
+                            <div class="divTableCell">Player-4</div>
+                        </div>
+                        <div id="divTableRow15" style="display: table-row;">
+                            <div class="divTableCell">Player-5</div>
+                        </div>
+                        <div id="divTableRow16" style="display: table-row;">
+                            <div class="divTableCell">Player-6</div>
+                        </div>
+                        <div id="divTableRow17" style="display: table-row;">
+                            <div class="divTableCell">Player-7</div>
+                        </div>
+                        <div id="divTableRow18" style="display: table-row;">
+                            <div class="divTableCell">Player-8</div>
+                        </div>
+                        <div id="divTableRow19" style="display: table-row;">
+                            <div class="divTableCell">Player-9</div>
+                        </div>
+                        <div id="divTableRow20" style="display: table-row;">
+                            <div class="divTableCell">Player-10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="cricket.js">
+
+    </script>
+</body>
+
+</html>
