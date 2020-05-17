@@ -9,7 +9,6 @@
     <style>
         .divTable {
             display: table;
-            width: 60%;
         }
 
         .divTableHeading {
@@ -21,7 +20,8 @@
         .divTableHead {
             border: 1px solid #999999;
             display: table-cell;
-            padding: 3px 10px;
+            padding: 1px 7px;
+            font-size: small;
         }
 
         .divTableHeading {
@@ -42,6 +42,12 @@
 
         #divTableBody-1 {
             display: table-row-group;
+        }
+
+        @media screen and (max-width:850px){
+            .col-lg-12, .col-lg-4, .divTable, .col-lg-3, .col-lg-5{
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -84,13 +90,13 @@
         <hr>
         <div class="row">
             <div class="col-lg-12 text-center mt-1">
-                <button class="bg-primary text-white" id="button-3" type="button" onclick="countdown();result();"
+                <button class="bg-primary text-white mb-4" id="button-3" type="button" onclick="countdown();result();"
                     disabled>GENERATE RESULT</button>
             </div>
         </div>
-        <div class="row mb-4">
-            <div class="col-lg-5 ml-3">
-                <div class="divTable">
+        <div class="row pb-4">
+            <div class="col-lg-4">
+                <div class="divTable" style="width: 100%;">
                     <div id="divTableBody-0">
                         <div class="divTableRow" style="display: table-row;">
                             <div class="divTableCell">Team-1</div>
@@ -136,7 +142,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-1">
+            <div class="col-lg-3 text-center ml-5">
                 <p>
                     Match Won By
                 </p>
@@ -148,13 +154,15 @@
                 </p>
                 <input id="player" type="text" class=" text-center"
                     style="width: 70px; border:none; font-size: 16px; font-weight: bold; color: black;">
+                <br>
                 <input id="team" type="text" class=" text-center"
                     style="width: 70px; border:none; font-size: 16px; font-weight: bold; color: black;">
+                <br>
                 <input id="score" type="text" class=" text-center"
                     style="width: 70px; border:none; font-size: 16px; font-weight: bold; color: black;">
             </div>
-            <div class="col-lg-5">
-                <div class="divTable">
+            <div class="col-lg-4 ml-4">
+                <div class="divTable" style="width: 100%;"> 
                     <div id="divTableBody-1">
                         <div class="divTableRow" style="display: table-row;">
                             <div class="divTableCell">Team-2</div>

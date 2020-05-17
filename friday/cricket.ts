@@ -1,7 +1,7 @@
 //only possible runs are 0,1,2,4,6
 let runs = [0, 1, 2, 4, 6];
 
-let teamScore = "";
+let change = 0;
 //using count for moving through countdown()
 let count = 0;
 
@@ -41,11 +41,11 @@ function countdown() {
         scoreboard();
     }
     if (count === 1) {
-        //no_of_player=10;
         scoreboard();
     }
 }
 
+//this will stop doubling the timer further when respective hit button is pressed
 function timer() {
     setTimeout("decrement()", 60);
     if (click === 0) {
@@ -56,47 +56,117 @@ function timer() {
     }
 }
 
-//updating the scoreboard of each team
 function scoreboard() {
-    //creating 10players by each player getting only 6 balls hence new variable called balls is created
-    balls = no_of_balls % 6;
-
     //total of the single player is calculated
     let total_single_player;
 
+    //creating 10players by each player getting only 6 balls hence new variable called balls is created
+    balls = no_of_balls % 6;
+    
+    
+    
+    //appending the no_of_player
     if ((balls === 1) && (no_of_player < 20)) {
         //total_single_player=0;
         no_of_player++;
     }
-    //console.log("no_of_players", no_of_player);
+    console.log("no_of_players", no_of_player);
+    
+    let div1 = document.getElementById("divTableRow" + no_of_player + "");
+    
+    //after 60 seconds if all the players from team-1 havent batted so changed to next table
+    if ((count === 1) && (change === 0)) {
+        
+        //updating the table-1 if all the players from team-1 hasnt played
+        if ((balls < 7) && (balls > 1) && (change === 0)) {
+            if (balls === 0) {
+                balls = 6;
+            }
+            for (let i = balls; i < 7; i++) {
+                let div5 = document.createElement("div");
+                div5.setAttribute("class", "divTableCell bg-warning text-center pt-2");
+                div5.innerHTML = "0";
+                div1.appendChild(div5);
+                output.push(0);
+                //total_single_player=total_single_player+runs[runs_scored];
+                //console.log("total_single_player", total_single_player);
+            }
+            total_single_player = 0;
+            let div6 = document.createElement("div");
+            div6.setAttribute("class", "divTableCell bg-success text-white text-center pt-2");
+            for (let i = 0; i < 6; i++) {
+                total_single_player = total_single_player + output[i];
+            }
+            teamscore.push(total_single_player);
+            console.log(teamscore);
+            div6.innerHTML = "" + total_single_player + "";
+            div1.appendChild(div6);
+            //console.log("total_single_player", total_single_player);
+            for (let i = 0; i < 6; i++) {
+                output.shift();
+            }
+        }
+        
+        //calculating the total team score for team-1
+        if (change === 0) {
+            change++;
+            for (let i = 0; i < teamscore.length; i++) {
+                team1score = team1score + teamscore[i];
+            }
+            //max(teamscore);
+            max1score = Math.max(...teamscore);
+            console.log("max1score", max1score);
+            max1index = (teamscore.indexOf(max1score)) + 1;
+            console.log("Player-" + max1index + "");
+            //console.log("arr", teamscore);
+            console.log("team1score", team1score);
+            for (let j = 0; j < 10; j++) {
+                teamscore.shift();
+            }
+        }
+        no_of_player = 11;
+        no_of_balls = 1;
+        balls=no_of_balls%6;
+        div1 = document.getElementById("divTableRow" + no_of_player + "");
+    }
+    console.log("balls", balls, "no_of_balls", no_of_balls);
+
+    //randomly generating number and considering this number as array index which contains the respective score in this match
     let runs_scored = Math.floor(Math.random() * 5)
     //console.log(runs_scored);
 
     //console.log("balls", balls);
-    let div1 = document.getElementById("divTableRow" + no_of_player + "");
-    console.log("secs", secs);
 
-    if ((balls < 7) && (runs_scored !== 0)) {
+
+    if ((balls < 7) && (runs_scored !== 0) && (no_of_player <= 20)) {
         let div4 = document.createElement("div");
-        div4.setAttribute("class", "divTableCell");
+        div4.setAttribute("class", "divTableCell text-center pt-2");
         div4.innerHTML = "" + runs[runs_scored] + "";
+        if ((runs[runs_scored] === 4) || (runs[runs_scored] === 6)) {
+            div4.setAttribute("class", "divTableCell bg-primary text-white text-center pt-2");
+        }
         //total_single_player=total_single_player+runs[runs_scored];
         output.push(runs[runs_scored]);
         //console.log("total_single_player", total_single_player);
         div1.appendChild(div4);
     }
     else {
-        if (balls === 0) {
-            balls = 6;
-        }
-        for (let i = balls; i < 7; i++) {
-            let div5 = document.createElement("div");
-            div5.setAttribute("class", "divTableCell");
-            div5.innerHTML = "0";
-            div1.appendChild(div5);
-            output.push(runs[runs_scored]);
-            //total_single_player=total_single_player+runs[runs_scored];
-            //console.log("total_single_player", total_single_player);
+        if (no_of_player <= 20) {
+            if (balls === 0) {
+                balls = 6;
+            }
+            for (let i = balls; i < 7; i++) {
+                let div5 = document.createElement("div");
+                div5.setAttribute("class", "divTableCell text-center pt-2");
+                div5.innerHTML = "0";
+                if (i === balls) {
+                    div5.setAttribute("class", "divTableCell bg-danger text-white text-center pt-2");
+                }
+                div1.appendChild(div5);
+                output.push(runs[runs_scored]);
+                //total_single_player=total_single_player+runs[runs_scored];
+                //console.log("total_single_player", total_single_player);
+            }
         }
         no_of_balls = no_of_balls + (6 - balls);
         balls = 6;
@@ -104,10 +174,10 @@ function scoreboard() {
     }
 
 
-    if ((balls === 6) || (balls === 0)) {
+    if (((balls === 6) || (balls === 0)) && (no_of_player <= 20)) {
         total_single_player = 0;
         let div6 = document.createElement("div");
-        div6.setAttribute("class", "divTableCell");
+        div6.setAttribute("class", "divTableCell bg-success text-white text-center pt-2");
         for (let i = 0; i < 6; i++) {
             total_single_player = total_single_player + output[i];
         }
@@ -121,75 +191,95 @@ function scoreboard() {
         }
         //console.log("output", output);
     }
-    if (((balls === 6) && (no_of_player > 9)) || (secs === 0)) {
+    if (((balls === 6) || (balls === 0)) && (no_of_player > 9)) {
         //(document.getElementById("button-2") as HTMLButtonElement).disabled = true;
         (document.getElementById("button-1") as HTMLButtonElement).disabled = true;
-        no_of_player=10;
-        if (count === 0) {
-            for (let i = 0; i < teamscore.length; i++) {
-                team1score = team1score + teamscore[i];
-            }
-            //max(teamscore);
-            max1score=Math.max(...teamscore);
-            console.log("max1score", max1score);
-            max1index=(teamscore.indexOf(max1score))+1;
-            console.log("Person-"+max1index+"");
-            //console.log("arr", teamscore);
-            console.log("team1score", team1score);
-            for (let j = 0; j < 10; j++) {
-                teamscore.shift();
-            }
-        }
+
     }
-    if ((balls === 6) && (no_of_player > 19)) {
+    if (((balls === 6) || (balls === 0)) && (no_of_player > 19)) {
         (document.getElementById("button-2") as HTMLButtonElement).disabled = true;
         (document.getElementById("button-1") as HTMLButtonElement).disabled = true;
-        for (let i = 0; i < teamscore.length; i++) {
-            team2score = team2score + teamscore[i];
-        }
-        //max(teamscore);
-        max2score=Math.max(...teamscore);
-        console.log("max2score", max2score);
-        max2index=(teamscore.indexOf(max2score))+1;
-        console.log("Person-"+max2index+"");
-        console.log("team2score", team2score);
-        for (let j = 0; j < 10; j++) {
-            teamscore.shift();
-        }
+
     }
-
-
-
     no_of_balls++;
     //console.log(no_of_balls);
 
 }
 
-//GENERATE RESULTS
 function result() {
-    let score1= (<HTMLInputElement>document.getElementById("team1"));
-    score1.value=""+team1score+"";
-    let score2= (<HTMLInputElement>document.getElementById("team2"));
-    score2.value=""+team2score+"";
-    if(team1score > team2score){
-        let won = (<HTMLInputElement>document.getElementById("won"));
-        won.value="TEAM1";
-        let player=(<HTMLInputElement>document.getElementById("player"));
-        player.value="Person-"+max1index+"";
-        let team=(<HTMLInputElement>document.getElementById("team"));
-        team.value="TEAM1";
-        let score=(<HTMLInputElement>document.getElementById("score"));
-        score.value="Score:"+max1score+"";
+    if ((count === 2) && (change === 1)) {
+        //total of the single player is calculated
+        let total_single_player;
+        balls=no_of_balls%6;
+        console.log("balls", balls, "no_of_balls", no_of_balls);
+        //updating the table-1 if all the players from team-1 hasnt played
+        if ((balls < 7) && (balls > 1) && (change === 1)) {
+            let div1 = document.getElementById("divTableRow" + no_of_player + "");
+            if (balls === 0) {
+                balls = 6;
+            }
+            for (let i = balls; i < 7; i++) {
+                let div5 = document.createElement("div");
+                div5.setAttribute("class", "divTableCell bg-warning text-center pt-2");
+                div5.innerHTML = "0";
+                div1.appendChild(div5);
+                output.push(0);
+                //total_single_player=total_single_player+runs[runs_scored];
+                //console.log("total_single_player", total_single_player);
+            }
+            total_single_player = 0;
+            let div6 = document.createElement("div");
+            div6.setAttribute("class", "divTableCell bg-success text-white text-center pt-2");
+            for (let i = 0; i < 6; i++) {
+                total_single_player = total_single_player + output[i];
+            }
+            teamscore.push(total_single_player);
+            console.log(teamscore);
+            div6.innerHTML = "" + total_single_player + "";
+            div1.appendChild(div6);
+            //console.log("total_single_player", total_single_player);
+            for (let i = 0; i < 6; i++) {
+                output.shift();
+            }
+        }
+        for (let i = 0; i < teamscore.length; i++) {
+            team2score = team2score + teamscore[i];
+        }
+        //max(teamscore);
+        max2score = Math.max(...teamscore);
+        console.log("max2score", max2score);
+        max2index = (teamscore.indexOf(max2score)) + 1;
+        console.log("Player-" + max2index + "");
+        console.log("team2score", team2score);
+        for (let j = 0; j < 10; j++) {
+            teamscore.shift();
+        }
     }
-    else{
-        let won= (<HTMLInputElement>document.getElementById("won"));
-        won.value="TEAM2";
-        let player=(<HTMLInputElement>document.getElementById("player"));
-        player.value="Person-"+max2index+"";
-        let team=(<HTMLInputElement>document.getElementById("team"));
-        team.value="TEAM2";
-        let score=(<HTMLInputElement>document.getElementById("score"));
-        score.value="Score:"+max2score+"";
+    let score1 = (<HTMLInputElement>document.getElementById("team1"));
+    score1.value = "" + team1score + "";
+    let score2 = (<HTMLInputElement>document.getElementById("team2"));
+    score2.value = "" + team2score + "";
+    if (team1score > team2score) {
+        score1.setAttribute("class", "bg-warning text-center");
+        let won = (<HTMLInputElement>document.getElementById("won"));
+        won.value = "TEAM1";
+        let player = (<HTMLInputElement>document.getElementById("player"));
+        player.value = "Player-" + max1index + "";
+        let team = (<HTMLInputElement>document.getElementById("team"));
+        team.value = "TEAM1";
+        let score = (<HTMLInputElement>document.getElementById("score"));
+        score.value = "Score:" + max1score + "";
+    }
+    else {
+        score2.setAttribute("class", "bg-warning text-center");
+        let won = (<HTMLInputElement>document.getElementById("won"));
+        won.value = "TEAM2";
+        let player = (<HTMLInputElement>document.getElementById("player"));
+        player.value = "Player-" + max2index + "";
+        let team = (<HTMLInputElement>document.getElementById("team"));
+        team.value = "TEAM2";
+        let score = (<HTMLInputElement>document.getElementById("score"));
+        score.value = "Score:" + max2score + "";
     }
 }
 
@@ -199,12 +289,18 @@ function decrement() {
         //console.log(secs);
 
         seconds.value = "" + secs + "";
-        //if seconds becomes zero, move to the other countdown and at last execute the generate button 
+        //if seconds becomes zero, move to the other countdown and at last execute the generate button
+        if (count === 0) {
+            (document.getElementById("button-2") as HTMLButtonElement).style.opacity = "0.6";
+            (document.getElementById("button-3") as HTMLButtonElement).style.opacity = "0.6";
+        }
         if (secs < 0) {
             count++;
             if (count === 1) {
+                (document.getElementById("button-1") as HTMLButtonElement).style.opacity = "0.6";
                 (document.getElementById("button-2") as HTMLButtonElement).disabled = false;
                 (document.getElementById("button-1") as HTMLButtonElement).disabled = true;
+                (document.getElementById("button-2") as HTMLButtonElement).style.opacity = "1";
                 secs = 60;
                 click = 1;
                 timer();
@@ -213,7 +309,8 @@ function decrement() {
                 (document.getElementById("button-2") as HTMLButtonElement).disabled = true;
                 (document.getElementById("button-1") as HTMLButtonElement).disabled = true;
                 (document.getElementById("button-3") as HTMLButtonElement).disabled = false;
-                result();
+                (document.getElementById("button-3") as HTMLButtonElement).style.opacity = "1";
+                (document.getElementById("button-2") as HTMLButtonElement).style.opacity = "0.6";
                 alert("both done");
             }
         }
